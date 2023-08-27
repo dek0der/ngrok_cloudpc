@@ -3,22 +3,23 @@ name: CI
 on: [push, workflow_dispatch]
 
 jobs:
-build:
+  build:
 
-runs-on: windows-latest
+    runs-on: windows-latest
 
-steps:
-- name: Download
+    steps:
+    - name: Download
 
-run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
-- name: Extract
+    run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
 
-run: Expand-Archive ngrok.zip
-- name: Auth
+    - name: Extract
 
-run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+    run: Expand-Archive ngrok.zip
+    - name: Auth
 
-env: NGROK_AUTH_TOKEN: ${{secrets.NGROK_AUTH_TOKEN }}
+    run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+
+    env: NGROK_AUTH_TOKEN: ${{secrets.NGROK_AUTH_TOKEN }}
 
 - name: Enable TS
 
